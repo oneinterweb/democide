@@ -1,0 +1,17 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { copy } from '../translations';
+const { lang, page = '' } = Astro.props;
+const t = copy[lang as 'en' | 'bg'];
+---
+<header class="site-header wrap">
+  <a class="brand" href={getRelativeLocaleUrl(lang)}><span class="brand-mark">D</span><span>Democide<small>{t.project}</small></span></a>
+  <nav class="main-nav" aria-label={lang === 'bg' ? 'Основна навигация' : 'Main navigation'}>
+    <a href={getRelativeLocaleUrl(lang, 'democide/')} aria-current={page === 'democide' ? 'page' : undefined}>{lang === 'bg' ? 'Демоцид' : 'Democide'}</a>
+    <a href={getRelativeLocaleUrl(lang, 'about/')} aria-current={page === 'about' ? 'page' : undefined}>{lang === 'bg' ? 'За нас' : 'About'}</a>
+  </nav>
+  <nav class="languages" aria-label={t.languageLabel}>
+    <a href={getRelativeLocaleUrl('en', page ? page + '/' : '')} lang="en" aria-current={lang === 'en' ? 'page' : undefined}>English</a>
+    <a href={getRelativeLocaleUrl('bg', page ? page + '/' : '')} lang="bg" aria-current={lang === 'bg' ? 'page' : undefined}>Български</a>
+  </nav>
+</header>

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { copy } from '../../translations';
 export function getStaticPaths() { return ['en', 'bg'].map(lang => ({ params: { lang } })); }
@@ -7,13 +9,7 @@ const lang = Astro.params.lang as 'en' | 'bg';
 const t = copy[lang];
 ---
 <Layout lang={lang} title={t.title} description={t.intro}>
-  <header class="site-header wrap">
-    <a class="brand" href={getRelativeLocaleUrl(lang)}><span class="brand-mark">D</span><span>Democide<small>{t.project}</small></span></a>
-    <nav class="languages" aria-label={t.languageLabel}>
-      <a href={getRelativeLocaleUrl('en')} lang="en" aria-current={lang === 'en' ? 'page' : undefined}>English</a>
-      <a href={getRelativeLocaleUrl('bg')} lang="bg" aria-current={lang === 'bg' ? 'page' : undefined}>Български</a>
-    </nav>
-  </header>
+  <Header lang={lang} />
   <main id="main">
     <section class="hero wrap">
       <div class="hero-copy">
@@ -28,5 +24,5 @@ const t = copy[lang];
     <section class="path wrap"><div class="section-heading"><div><p class="eyebrow">02 / {t.nextLabel}</p><h2>{t.nextTitle}</h2></div><p>{t.nextIntro}</p></div><div class="steps"><article><span>01</span><h3>{t.step1Title}</h3><p>{t.step1Text}</p></article><article><span>02</span><h3>{t.step2Title}</h3><p>{t.step2Text}</p></article><article><span>03</span><h3>{t.step3Title}</h3><p>{t.step3Text}</p></article></div></section>
     <section class="source wrap"><div><p class="eyebrow">03 / {t.sourceLabel}</p><h2>{t.sourceTitle}</h2><p>{t.sourceText}</p></div><a class="button light" href="https://www.hawaii.edu/powerkills/welcome.html">{t.sourceButton} ↗</a></section>
   </main>
-  <footer class="wrap"><div><strong>{t.brand}</strong><p>{t.footer}</p><p>Sponsored by Threefold Christian Alliance <a href="https://www.threefold.life">www.threefold.life</a></p></div><span>EN / BG</span></footer>
+  <Footer lang={lang} />
 </Layout>

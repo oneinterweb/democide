@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+export function getStaticPaths() { return ['en', 'bg'].flatMap(lang => ['democide', 'about'].map(page => ({ params: { lang, page } }))); }
+const { lang, page } = Astro.params;
+const bg = lang === 'bg';
+const about = page === 'about';
+const title = about ? (bg ? 'За проекта' : 'About the project') : (bg ? 'Какво е демоцид?' : 'What is democide?');
+const source = about ? 'https://www.hawaii.edu/powerkills/PERSONAL.HTM' : 'https://www.hawaii.edu/powerkills/DBG.CHAP1.HTM';
+---
+<Layout lang={lang} title={`${title} · Democide`} description={title}>
+  <Header lang={lang} page={page} />
+  <main id="main" class="reading wrap">
+    <p class="eyebrow">{bg ? 'ВЛАСТ И ОТГОВОРНОСТ' : 'POWER AND ACCOUNTABILITY'}</p>
+    <h1>{title}</h1>
+    {about ? <>
+      <p class="intro">{bg ? 'Помагаме на повече хора да разберат опасността от безконтролната държавна власт.' : 'Helping more people understand the danger of unchecked government power.'}</p>
+      <h2>{bg ? 'Нашата мисия' : 'Our mission'}</h2>
+      <p>{bg ? 'Democide е независим образователен проект на английски и български език. Целта ни е да насърчаваме изучаването на държавното насилие, критичното четене на източници и търсенето на отговорност от управляващите.' : 'Democide is an independent educational project in English and Bulgarian. Our purpose is to encourage the study of state violence, critical reading of sources, and public accountability for those who govern.'}</p>
+      <h2>{bg ? 'За Р. Дж. Ръмъл' : 'About R. J. Rummel'}</h2>
+      <p>{bg ? 'Рудолф Дж. Ръмъл е политолог, чиито изследвания разглеждат войната, колективното насилие и масовите убийства, извършвани от правителства. Архивът Power Kills представя неговите трудове и аргумента му, че ограничаването на държавната власт е съществено за защитата на човешкия живот.' : 'Rudolph J. Rummel was a political scientist whose research examined war, collective violence, and government mass killing. The Power Kills archive presents his work and his argument that constraints on government power are essential to protecting human life.'}</p>
+      <p>{bg ? 'Този сайт не представлява Ръмъл или Хавайския университет. Публикуваните тук въведения са оригинални текстове на проекта, а не преводи на неговите трудове. Българският текст очаква независима езикова редакция.' : 'This site does not represent Rummel or the University of Hawaiʻi. The introductions published here are original project text, not translations of his work. The Bulgarian copy is awaiting independent language review.'}</p>
+    </> : <>
+      <p class="intro">{bg ? 'Термин за убийството на хора от правителство — и отправна точка за изследване на смъртоносните последици от безконтролната власт.' : 'A term for the killing of people by government—and a starting point for examining the deadly consequences of unchecked power.'}</p>
+      <h2>{bg ? 'Властта като предмет на изследване' : 'Examining the power to kill'}</h2>
+      <p>{bg ? 'Ръмъл използва понятието „демоцид“, за да изследва геноцида и масовите убийства, извършвани от правителства. В първата глава на „Смърт от правителството“ той твърди, че съсредоточаването на неконтролирана власт увеличава опасността от такова насилие.' : 'Rummel uses “democide” to study genocide and government mass murder. In the opening chapter of Death by Government, he argues that the concentration of unchecked power increases the danger of this violence.'}</p>
+      <h2>{bg ? 'Четете критично' : 'Read critically'}</h2>
+      <p>{bg ? 'Главата представя исторически сравнения, оценки и аргументи. Четете числата заедно с техните източници, определения и времеви обхват. Това са оценки на автора, които следва да бъдат проверявани и сравнявани с други изследвания.' : 'The chapter presents historical comparisons, estimates, and arguments. Read its numbers alongside their sources, definitions, and time periods. They are the author’s estimates, to be examined and compared with other scholarship.'}</p>
+      <p>{bg ? 'Това е кратко оригинално въведение, а не превод на главата. Пълният текст е достъпен на английски в оригиналния архив.' : 'This is a short original introduction, not a translation of the chapter. The full text is available in English in the original archive.'}</p>
+    </>}
+    <div class="reading-source"><p class="eyebrow">{bg ? 'ИЗТОЧНИК' : 'SOURCE'}</p><p>{about ? 'R. J. Rummel — About' : 'Death by Government — Chapter 1: 20th Century Democide'}</p><a class="button primary" href={source}>{bg ? 'Прочетете оригинала на английски' : 'Read the original in English'} ↗</a></div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

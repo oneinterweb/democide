@@ -1,0 +1,5 @@
+---
+import { copy } from '../translations';
+const { lang } = Astro.props;
+---
+<footer class="wrap"><div><strong>Democide</strong><p>{copy[lang as 'en' | 'bg'].footer}</p><p>Sponsored by Threefold Christian Alliance <a href="https://www.threefold.life">www.threefold.life</a></p></div><span>EN / BG</span></footer>
