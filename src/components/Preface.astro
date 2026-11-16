@@ -1,0 +1,18 @@
+---
+import english from '../content/preface-en.txt?raw';
+import bulgarian from '../content/preface-bg.txt?raw';
+const { lang } = Astro.props;
+const bg = lang === 'bg';
+const text = (bg ? bulgarian : english).replace(/\r\n/g, '\n');
+const blocks = text.replace(/^(PREFACE\*|ПРЕДГОВОР\*|NOTES|БЕЛЕЖКИ|ACKNOWLEDGMENTS|БЛАГОДАРНОСТИ)\n/gm, '$1\n\n').trim().split(/\n\s*\n/);
+const headings = ['PREFACE*', 'ПРЕДГОВОР*', 'NOTES', 'БЕЛЕЖКИ', 'ACKNOWLEDGMENTS', 'БЛАГОДАРНОСТИ'];
+---
+<article class="preface" aria-labelledby="preface-title">
+  <header class="preface-header">
+    <p class="eyebrow">{bg ? 'ТЕКСТ ОТ АРХИВА' : 'ARCHIVE READING'}</p>
+    <h2 id="preface-title">{bg ? 'Смърт от правителството: Предговор' : 'Death by Government: Preface'}</h2>
+    <p>{bg ? 'Р. Дж. Ръмъл · 1994 · Превод на български' : 'R. J. Rummel · 1994'}</p>
+    <p class="editorial-note">{bg ? 'Следва текстът на автора, включително неговите оценки и заключения. Споменатите периоди се отнасят до оригиналното издание. Препратките към ресурси засега са оставени като обикновен текст.' : 'The text below is the author’s, including his estimates and conclusions. References to time periods belong to the original publication. Resource references are left as plain text for now.'}</p>
+  </header>
+  {blocks.map(block => headings.includes(block) ? <h3>{block}</h3> : <p>{block}</p>)}
+</article>

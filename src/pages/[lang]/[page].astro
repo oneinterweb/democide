@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import Preface from '../../components/Preface.astro';
 export function getStaticPaths() { return ['en', 'bg'].flatMap(lang => ['democide', 'about'].map(page => ({ params: { lang, page } }))); }
 const { lang, page } = Astro.params;
 const bg = lang === 'bg';
@@ -30,7 +31,7 @@ const source = about ? 'https://www.hawaii.edu/powerkills/PERSONAL.HTM' : 'https
       <p>{bg ? 'Това е кратко оригинално въведение, а не превод на главата. Пълният текст е достъпен на английски в оригиналния архив.' : 'This is a short original introduction, not a translation of the chapter. The full text is available in English in the original archive.'}</p>
     </>}
     <div class="reading-source"><p class="eyebrow">{bg ? 'ИЗТОЧНИК' : 'SOURCE'}</p><p>{about ? 'R. J. Rummel — About' : 'Death by Government — Chapter 1: 20th Century Democide'}</p><a class="button primary" href={source}>{bg ? 'Прочетете оригинала на английски' : 'Read the original in English'} ↗</a></div>
+    {!about && <Preface lang={lang} />}
   </main>
   <Footer lang={lang} />
 </Layout>
-
